@@ -1,0 +1,22 @@
+{
+  "name": "learning-jest-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ishan-Wijesingha99/Learning-Jest-Testing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ishan-Wijesingha99/Learning-Jest-Testing/issues"
+  },
+  "homepage": "https://github.com/Ishan-Wijesingha99/Learning-Jest-Testing#readme",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
