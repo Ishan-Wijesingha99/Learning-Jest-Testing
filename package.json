@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Ishan-Wijesingha99/Learning-Jest-Testing#readme",
   "devDependencies": {
     "jest": "^28.1.3"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
   }
 }
