@@ -96,5 +96,11 @@ describe('strings', () => {
 
 // matchers involving arrays
 describe('arrays', () => {
-    
+    const namesArray = ['Ishan', 'Jimmy', 'Pratik', 'Hugh', 'Xavier']
+
+    // check if array contains a certain element
+    expect(namesArray).toContain('Hugh') // this will pass
 });
+
+
+
