@@ -1,5 +1,5 @@
 
-// in order to test asynchronous functions in javascript, we need to download a library called axios
+// in order to create fetch requests in node, we need a library called axios
 const axios = require('axios')
 
 
