@@ -1,7 +1,4 @@
 
-// what is a mock?
-// it's a fake object that holds information about mock functions
-
 // let's say we define a function in our code
 // and throughout our code, we use that function in many different ways
 // we call it a few times with no arguments, we call it a few more times with different arguments, we nest it as a callback a few times, we use it a ton in our code
@@ -86,5 +83,80 @@ it('helloFunction should not have been called', () => {
 
 
 
+// each function created using jest.fn() has the .mock property
+// this .mock property is itself an object that has a bunch of data associated with the function it's being attached to
+
+// defining a function using jest.fn()
+const greetingFunction = jest.fn(name => `Hi there ${name}`)
+
+// calling the function 3 times
+console.log(greetingFunction('Jimmy'))
+console.log(greetingFunction('Hugh'))
+console.log(greetingFunction('Pratik'))
+
+
+
+console.log(greetingFunction.mock) // as you can see, this is an object with some helpful properties
+console.log(greetingFunction.mock.calls) // this is an array that has arrays inside of it. These arrays contain the arguments passed into the function each time it was called
+// [ ['Jimmy'], ['Hugh'], ['Pratik'] ]
+
+
+
+// exploring more features of .mock
+describe('exploring features of .mock', () => {
+
+    it('goodbyeFunction should have been called twice', () => {
+       
+        const goodbyeFunction = jest.fn((name) => {
+            return console.log(`Goodbye ${name}`)
+        })
+    
+        goodbyeFunction('Hugh')
+        goodbyeFunction('Xavier')
+    
+        // use .mock.calls.length for how many times the function has been called
+        expect(goodbyeFunction.mock.calls.length).toBe(2)
+    
+    });
+    
+    
+    it('goodbyeFunction should have had certain arguments when it was called', () => {
+    
+        const goodbyeFunction = jest.fn((name) => {
+            return console.log(`Goodbye ${name}`)
+        })
+    
+        goodbyeFunction('Hugh')
+        goodbyeFunction('Xavier')
+
+        // can also access the arguments passed in of a specific instance of when the function was called
+        // the reason it's [0][0] instead of just [0] is because it's ['Hugh'] not just 'Hugh'
+        expect(goodbyeFunction.mock.calls[0][0]).toBe('Hugh')
+        expect(goodbyeFunction.mock.calls[1][0]).toBe('Xavier')
+    
+    });
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// can also access the returned value
 
 

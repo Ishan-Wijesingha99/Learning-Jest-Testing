@@ -44,7 +44,7 @@ describe('animals array', () => {
     
     it('should add aligator to end of array', () => {
         animals.push('aligator')
-        expect(animals[animals.length -1]).toBe('aligator')
+        expect(animals[animals.length - 1]).toBe('aligator')
     });
 
     it('should add monkey to start of array', () => {
