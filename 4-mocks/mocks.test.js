@@ -211,10 +211,16 @@ it('should access information about ishanObject.calcAge', () => {
     trackedCalcAgeFunction(2007)
     trackedCalcAgeFunction(1990)
 
+    // some useful information about trackedCalcAgeFunction
     console.log(trackedCalcAgeFunction.mock)
     console.log(trackedCalcAgeFunction.mock.calls)
     console.log(trackedCalcAgeFunction.mock.results)
     console.log(trackedCalcAgeFunction.mock.lastcall)
+
+    // also can use these
+    expect(trackedCalcAgeFunction).toHaveBeenCalledTimes(4)
+    expect(trackedCalcAgeFunction).toHaveBeenCalledWith(2001)
+    expect(trackedCalcAgeFunction).toHaveBeenLastCalledWith(1990)
 
 });
 
