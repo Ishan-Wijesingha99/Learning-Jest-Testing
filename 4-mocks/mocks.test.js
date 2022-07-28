@@ -107,8 +107,8 @@ describe('exploring features of .mock', () => {
 
     it('goodbyeFunction should have been called twice', () => {
        
-        const goodbyeFunction = jest.fn((name) => {
-            return console.log(`Goodbye ${name}`)
+        const goodbyeFunction = jest.fn(name => {
+            return `Goodbye ${name}`
         })
     
         goodbyeFunction('Hugh')
@@ -119,11 +119,10 @@ describe('exploring features of .mock', () => {
     
     });
     
-    
     it('goodbyeFunction should have had certain arguments when it was called', () => {
     
-        const goodbyeFunction = jest.fn((name) => {
-            return console.log(`Goodbye ${name}`)
+        const goodbyeFunction = jest.fn(name => {
+            return `Goodbye ${name}`
         })
     
         goodbyeFunction('Hugh')
@@ -136,9 +135,86 @@ describe('exploring features of .mock', () => {
     
     });
 
+    it('goodbyeFunction should have certain returned values', () => {
+    
+        const goodbyeFunction = jest.fn(name => {
+            return `Goodbye ${name}`
+        })
+    
+        goodbyeFunction('Hugh')
+        goodbyeFunction('Xavier')
+
+        // can also access the returned values of a specific instance of when the function was called
+        // goodbyeFunction.mock.results is an array on objects, one object for each time the function was called
+
+        //  results: [
+        //     { type: 'return', value: 'Goodbye Hugh' },
+        //     { type: 'return', value: 'Goodbye Xavier' }
+        //   ]
+        expect(goodbyeFunction.mock.results[0].value).toBe('Goodbye Hugh')
+        expect(goodbyeFunction.mock.results[1].value).toBe('Goodbye Xavier')
+    
+    });
+
+});
 
 
 
+// mocking the return value of a function/method
+// you can imagine that if we had a fetch call to a web API, that usually costs money, and if you're a company, you probably wouldn't want to be paying a fee for testing a fetch function, you would probably only want to pay for actual fetch calls needed for the client
+// in this case, we can just mock the return value of a fetch call or any function
+it('should mock return value of function', () => {
+    // let's say we're dealing with a fetch call to a weather API, instead of actually creating a function the returns the fetched data, let's just create a function that mocks that return value
+    const fetchCityTemp = jest.fn()
+
+    // so the next time we call fetchCityTemp() , it will return the object we specified
+    // we are just setting it up here for the next time fetchCityTemp is called
+    fetchCityTemp.mockReturnValueOnce({city: 'Melbourne', tempDegrees: 16})
+
+    const melbourneData = fetchCityTemp()
+
+    expect(melbourneData).toEqual({city: 'Melbourne', tempDegrees: 16})
+
+
+    // you can chain as many as you want
+    fetchCityTemp.mockReturnValueOnce({city: 'Gold Coast', tempDegrees: 19}).mockReturnValueOnce({city: 'Sydney', tempDegrees: 13}).mockReturnValueOnce({city: 'Cairns', tempDegrees: 20})
+
+    expect(fetchCityTemp()).toEqual({city: 'Gold Coast', tempDegrees: 19})
+    expect(fetchCityTemp()).toEqual({city: 'Sydney', tempDegrees: 13})
+    expect(fetchCityTemp()).toEqual({city: 'Cairns', tempDegrees: 20})
+
+});
+
+
+
+// jest.spyOn()
+// this is very similar to jest.fn() , the only difference is that we used jest.fn() to access information regarding a function, here we use jest.spyOn() to access information regarding a METHOD OF AN OBJECT, so a specific case of function
+
+const ishanObject = {
+    firstName: 'Ishan',
+    lastName: 'Wijesingha',
+    job: 'Developer',
+    calcAge: birthYear => 2022 - birthYear  
+}
+
+it('should access information about ishanObject.calcAge', () => {
+    
+    // the first argument is the object, the second argument is the method of that object
+    const trackedCalcAgeFunction = jest.spyOn(ishanObject, 'calcAge')
+
+    // we can now mock the return value of this object method just like we did before
+    trackedCalcAgeFunction.mockReturnValueOnce(22)
+    expect(trackedCalcAgeFunction()).toBe(22)
+
+    // we can access information about this object method just like we did above
+    trackedCalcAgeFunction(2001)
+    trackedCalcAgeFunction(2007)
+    trackedCalcAgeFunction(1990)
+
+    console.log(trackedCalcAgeFunction.mock)
+    console.log(trackedCalcAgeFunction.mock.calls)
+    console.log(trackedCalcAgeFunction.mock.results)
+    console.log(trackedCalcAgeFunction.mock.lastcall)
 
 });
 
@@ -156,7 +232,5 @@ describe('exploring features of .mock', () => {
 
 
 
-
-// can also access the returned value
 
 
